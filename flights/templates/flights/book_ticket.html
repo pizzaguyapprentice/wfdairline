@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Book Ticket for {{ flight }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="seat" placeholder="Seat">
+    <button type="submit">Book</button>
+</form>
+{% endblock %}

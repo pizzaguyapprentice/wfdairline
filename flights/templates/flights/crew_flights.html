@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Crew Dashboard</h1>
+
+<h2>My Flights</h2>
+{% for a in assignments %}
+    <p>{{ a.flight }} - {{ a.role }}</p>
+{% empty %}
+    <p>No assignments</p>
+{% endfor %}
+
+<hr>
+
+<h2>Available Flights</h2>
+
+{% for flight in flights %}
+    <p>
+        {{ flight }}
+
+        {% if flight.id in assigned_flight_ids %}
+            <form method="post" action="{% url 'unassign_self' flight.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Unassign</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'assign_self' flight.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Assign Me</button>
+            </form>
+        {% endif %}
+    </p>
+{% endfor %}
+
+{% endblock %}

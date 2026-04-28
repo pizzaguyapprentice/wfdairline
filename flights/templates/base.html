@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Airline System</title>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+
+    <p>User logged in as: {{ user.username }}</p>
+
+    {% if role == "passenger" %}
+        <a href="{% url 'flight_list' %}">Flights</a>
+    {% endif %}
+
+    {% if role == "crew" %}
+        <a href="{% url 'crew_flights' %}">My Flights</a>
+    {% endif %}
+
+    {% if role == "maintenance" %}
+        <a href="{% url 'maintenance_projects' %}">Maintenance</a>
+    {% endif %}
+
+    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+    <hr>
+
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

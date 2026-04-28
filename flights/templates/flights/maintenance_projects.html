@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Maintenance Projects</h1>
+
+<h2>Create Project</h2>
+
+<form method="post" action="{% url 'create_project' %}">
+    {% csrf_token %}
+
+    <select name="plane">
+    {% for plane in planes %}
+        <option value="{{ plane.id }}">{{ plane.model }}</option>
+    {% endfor %}
+    </select>
+    <input type="date" name="start_date">
+    <input type="date" name="end_date">
+
+    <button type="submit">Create</button>
+</form>
+
+{% for p in projects %}
+    <h3>{{ p }}</h3>
+
+    <form method="post" action="{% url 'delete_project' p.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Delete Project</button>
+    </form>
+
+    <form method="post" action="{% url 'create_task' p.id %}">
+        {% csrf_token %}
+        <input type="text" name="description" placeholder="New task">
+        <button type="submit">Add Task</button>
+    </form>
+
+    <br>
+
+    {% for task in p.tasks.all %}
+    <p>
+        {{ task.description }} - {{ task.status }}
+
+        <a href="{% url 'task_update' task.id %}">Update</a>
+
+        <form method="post" action="{% url 'delete_task' task.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+    </p>
+    {% endfor %}
+
+{% empty %}
+    <p>No projects</p>
+{% endfor %}
+
+{% endblock %}

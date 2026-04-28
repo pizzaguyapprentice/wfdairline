@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Flights</h1>
+
+{% for flight in flights %}
+    <p>
+        {{ flight }}
+        <a href="{% url 'book_ticket' flight.id %}">Book</a>
+    </p>
+{% empty %}
+    <p>No flights available</p>
+{% endfor %}
+{% endblock %}
