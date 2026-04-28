@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-f!pk%-_^5v*+y2@@t^n9n4%dbuy^i)+=e-4czuy2^kv&fu(+0k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wfdairline.onrender.com',]
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
